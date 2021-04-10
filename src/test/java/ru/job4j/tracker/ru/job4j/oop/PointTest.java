@@ -49,4 +49,49 @@ public class PointTest {
         double out = point1.distance(point2);
         Assert.assertEquals(expected, out, 0.01);
     }
+
+    @Test
+    public void when224to222then2() {
+        double expected = 2;
+        int x1 = 2;
+        int y1 = 2;
+        int z1 = 4;
+        int x2 = 2;
+        int y2 = 2;
+        int z2 = 2;
+        Point point1 = new Point(x1, y1, z1);
+        Point point2 = new Point(x2, y2, z2);
+        double out = point1.distance3d(point2);
+        Assert.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    public void when000to275then88317() {
+        double expected = 8.8317;
+        int x1 = 0;
+        int y1 = 0;
+        int z1 = 0;
+        int x2 = 2;
+        int y2 = 7;
+        int z2 = 5;
+        Point point1 = new Point(x1, y1, z1);
+        Point point2 = new Point(x2, y2, z2);
+        double out = point1.distance3d(point2);
+        Assert.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    public void when275to000then88317() {
+        double expected = 8.8317;
+        int x1 = 2;
+        int y1 = 7;
+        int z1 = 5;
+        int x2 = 0;
+        int y2 = 0;
+        int z2 = 0;
+        Point point1 = new Point(x1, y1, z1);
+        Point point2 = new Point(x2, y2, z2);
+        double out = point1.distance3d(point2);
+        Assert.assertEquals(expected, out, 0.01);
+    }
 }
