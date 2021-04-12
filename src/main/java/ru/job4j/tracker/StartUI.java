@@ -1,11 +1,8 @@
 package ru.job4j.tracker;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.Scanner;
 
 public class StartUI {
-
     public void init(Scanner scanner, Tracker tracker) {
         boolean run = true;
         while (run) {
@@ -18,8 +15,6 @@ public class StartUI {
                 Item item = new Item();
                 item.setName(name);
                 tracker.add(item);
-                /*            } else if (...) { */
-                /*             Добавить остальные действия системы по меню. */
             } else if (select == 1) {
                 System.out.println("=== Show all items ====");
                 Item[] arr = tracker.findAll();
