@@ -1,4 +1,5 @@
 package ru.job4j.tracker.ru.job4j.oop;
 
-public class Student {
+public class Freshman extends Student{
+
 }
