@@ -4,16 +4,15 @@ public class StartUI {
     public static void createItem(Input input, Tracker tracker) {
         System.out.println("=== Create a new Item ====");
         String name = input.askStr("Enter name: ");
-        Item item = new Item();
-        item.setName(name);
+        Item item = new Item(name);
         tracker.add(item);
     }
 
     public static void  showAllItems(Tracker tracker) {
         System.out.println("=== Show all items ====");
         Item[] arr = tracker.findAll();
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+        for(Item item: arr) {
+            System.out.println(item);
         }
     }
 
@@ -21,8 +20,7 @@ public class StartUI {
         System.out.println("=== Edit item ====");
         int itemId = Integer.parseInt(input.askStr("Enter ID "));
         String name = input.askStr("Enter name of new Item ");
-        Item item = new Item();
-        item.setName(name);
+        Item item = new Item(name);
         if(tracker.replace(itemId,item)) {
             System.out.println("Item changed successfully");
         } else {
