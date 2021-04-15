@@ -64,17 +64,22 @@ public class StartUITest {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("item"));
-        Item item2 = tracker.add(new Item("item2"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.getId()), "0", String.valueOf(item2.getId()), "1"}
+                new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
                 new ShowAllAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findById(item.getId()).getName(), is(item.getName()));
-        assertThat(tracker.findById(item2.getId()).getName(), is(item2.getName()));
+        assertThat(out.toString(), is("Menu." + System.lineSeparator() +
+                                            "0. Show all items" + System.lineSeparator() +
+                                            "1. Exit Program" + System.lineSeparator() +
+                                            "=== Show all items ====" + System.lineSeparator() +
+                                            item.toString() + System.lineSeparator() +
+                                            "Menu." + System.lineSeparator() +
+                                            "0. Show all items" + System.lineSeparator() +
+                                            "1. Exit Program" + System.lineSeparator() ));
     }
 
     @Test
@@ -85,16 +90,23 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Bug"));
         Item item3 = tracker.add(new Item("Fix"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.getId()), "0", String.valueOf(item2.getId()), "0", String.valueOf(item3.getId()), "1"}
+                new String[] {"0", item.getName(), "1"}
         );
         UserAction[] actions = {
                 new FindNameAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findByName(item.getName()).length, is(2));
-        assertThat(tracker.findByName(item.getName())[0].getName(), is(item.getName()));
-        assertThat(tracker.findByName(item.getName())[1].getName(), is(item2.getName()));
+        assertThat(out.toString(), is("Menu." + System.lineSeparator() +
+                "0. Find items by name" + System.lineSeparator() +
+                "1. Exit Program" + System.lineSeparator() +
+                "=== Find items by name ===" + System.lineSeparator() +
+                item.toString() + System.lineSeparator() +
+                item2.toString() + System.lineSeparator() +
+                "Menu." + System.lineSeparator() +
+                "0. Find items by name" + System.lineSeparator() +
+                "1. Exit Program" + System.lineSeparator() ));
+
     }
 
     @Test
@@ -112,6 +124,13 @@ public class StartUITest {
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findById(item3.getId()).getId(), is(item3.getId()));
+        assertThat(out.toString(), is("Menu." + System.lineSeparator() +
+                "0. Find item by Id" + System.lineSeparator() +
+                "1. Exit Program" + System.lineSeparator() +
+                "=== Find item by Id ===" + System.lineSeparator() +
+                item3.toString() + System.lineSeparator() +
+                "Menu." + System.lineSeparator() +
+                "0. Find item by Id" + System.lineSeparator() +
+                "1. Exit Program" + System.lineSeparator() ));
     }
 }
