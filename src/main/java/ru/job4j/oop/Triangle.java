@@ -15,7 +15,6 @@ public class Triangle {
         return (a + b + c) / 2;
     }
 
-
     public boolean exist(double ab, double ac, double bc) {
         return ab + ac > bc && ac + bc > ab && ab + bc > ac;
     }
@@ -28,7 +27,7 @@ public class Triangle {
         double p = period(ab, ac, bc);
         if (this.exist(ab, ac, bc)) {
             /* написать формулу для расчета площади треугольника. */
-            rsl = Math.sqrt(p * (p - ab) * (p - bc) * (p - ac));;
+            rsl = Math.sqrt(p * (p - ab) * (p - bc) * (p - ac));
         }
         return rsl;
     }

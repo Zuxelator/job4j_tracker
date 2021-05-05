@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-public class ReplaceAction implements UserAction{
+public class ReplaceAction implements UserAction {
     private final Output out;
 
     public ReplaceAction(Output out) {
@@ -18,7 +18,7 @@ public class ReplaceAction implements UserAction{
         int itemId = input.askInt("Enter ID ");
         String name = input.askStr("Enter name of new Item ");
         Item item = new Item(name);
-        if(tracker.replace(itemId,item)) {
+        if (tracker.replace(itemId, item)) {
             out.println("Item changed successfully");
         } else {
             out.println("Error: An element with this ID was not found.");

@@ -5,7 +5,7 @@ public class Fact {
     }
 
     public int calc(int n) {
-        if(n < 0) {
+        if (n < 0) {
             throw new IllegalArgumentException("n должно быть >= 0");
         }
         int rsl = 1;
