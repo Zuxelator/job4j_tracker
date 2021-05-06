@@ -18,6 +18,7 @@ notifications:
       - zuxel87@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
+
 env:
   global:
     - CODECOV_TOKEN="85164caa-5fba-4eef-915d-80cb7c292863"
