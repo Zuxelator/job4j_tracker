@@ -25,9 +25,6 @@ public class FreezeStr {
                 leftMap.put(ch, leftMap.get(ch) - 1);
             }
         }
-        if (leftMap.isEmpty()) {
-            rsl = true;
-        }
-        return rsl;
+        return leftMap.isEmpty();
     }
 }
