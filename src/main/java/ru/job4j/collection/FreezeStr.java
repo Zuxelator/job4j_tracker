@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class FreezeStr {
     public static boolean eq(String left, String right) {
+        boolean rsl = false;
         Map<Character, Integer> leftMap = new HashMap<>();
         char[] leftCharArray = left.toCharArray();
         for (char ch : leftCharArray) {
@@ -14,15 +15,19 @@ public class FreezeStr {
                 leftMap.put(ch, leftMap.get(ch) + 1);
             }
         }
-        Map<Character, Integer> rightMap = new HashMap<>();
         char[] rightCharArray = right.toCharArray();
         for (char ch : rightCharArray) {
-            if (!rightMap.containsKey(ch)) {
-                rightMap.put(ch, 1);
+            if (!leftMap.containsKey(ch)) {
+                return false;
+            } else if (leftMap.get(ch) == 1) {
+                leftMap.remove(ch);
             } else {
-                rightMap.put(ch, rightMap.get(ch) + 1);
+                leftMap.put(ch, leftMap.get(ch) - 1);
             }
         }
-        return leftMap.equals(rightMap);
+        if (leftMap.isEmpty()) {
+            rsl = true;
+        }
+        return rsl;
     }
 }
