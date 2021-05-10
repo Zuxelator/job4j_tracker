@@ -10,7 +10,7 @@ public class LambdaUsage {
         ArrayList<String> arr = new ArrayList<>(Arrays.asList("asd", "ss", "ssdsdas", "dasd"));
         Comparator<String> descComp = (left, right) -> {
             System.out.println("compare - " + right + " : " + left);
-            return right.length() - left.length();
+            return Integer.compare(right.length(), left.length());
         };
         System.out.println(arr);
         Collections.sort(arr, descComp);
