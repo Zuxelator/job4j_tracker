@@ -24,9 +24,8 @@ public class Student {
     }
 
     public static Map<String, Student> listToMap(List<Student> list) {
-        Map<String, Student> rsl = list.stream()
+        return list.stream()
                 .collect(Collectors.toMap(Student::getSurname, x -> x, (a, b) -> a));
-        return rsl;
     }
 
     @Override
