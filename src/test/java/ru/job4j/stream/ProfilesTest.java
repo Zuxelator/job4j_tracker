@@ -30,12 +30,12 @@ public class ProfilesTest {
     public void profileTestDuplic() {
         List<Profile> profiles = List.of(
                 new Profile(new Address("Moscow", "Tverskaya", 10, 1)),
-                new Profile(new Address("Moscow", "Chertanovskaya", 1, 12)),
-                new Profile(new Address("Moscow", "Chertanovskaya", 1, 12))
+                new Profile(new Address("Anapa", "Chertanovskaya", 1, 12)),
+                new Profile(new Address("Anapa", "Chertanovskaya", 1, 12))
         );
         List<Address> rsl = Profiles.collect(profiles);
         List<Address> expected = new ArrayList<>();
-        expected.add(new Address("Moscow", "Chertanovskaya", 1, 12));
+        expected.add(new Address("Anapa", "Chertanovskaya", 1, 12));
         expected.add(new Address("Moscow", "Tverskaya", 10, 1));
         assertThat(rsl, is(expected));
     }
