@@ -23,6 +23,10 @@ public class Student {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public static Map<String, Student> listToMap(List<Student> list) {
         return list.stream()
                 .collect(Collectors.toMap(Student::getSurname, x -> x, (a, b) -> a));
