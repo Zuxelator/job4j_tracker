@@ -13,12 +13,12 @@ public class ReplaceAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store store) {
         out.println("=== Edit item ====");
         int itemId = input.askInt("Enter ID ");
         String name = input.askStr("Enter name of new Item ");
         Item item = new Item(name);
-        if (tracker.replace(itemId, item)) {
+        if (store.replace(itemId, item)) {
             out.println("Item changed successfully");
         } else {
             out.println("Error: An element with this ID was not found.");

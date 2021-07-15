@@ -1,11 +1,10 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
 import java.util.List;
 
 public final class SingleTracker {
     private static SingleTracker instance = null;
-    private static Tracker tracker = new Tracker();
+    private static MemTracker memTracker = new MemTracker();
 
     /* реализовать singleton */
 
@@ -20,28 +19,28 @@ public final class SingleTracker {
     }
 
     public static Item add(Item item) {
-        return tracker.add(item);
+        return memTracker.add(item);
     }
 
     public static Item findById(int id) {
-        return tracker.findById(id);
+        return memTracker.findById(id);
     }
 
     public static List<Item> findAll() {
-        return tracker.findAll();
+        return memTracker.findAll();
     }
 
     public static List<Item> findByName(String key) {
-        return tracker.findByName(key);
+        return memTracker.findByName(key);
     }
 
     public static boolean replace(int id, Item item) {
-        return tracker.replace(id, item);
+        return memTracker.replace(id, item);
     }
 
     public static boolean delete(int id) {
-        return tracker.delete(id);
+        return memTracker.delete(id);
     }
 
-    /* Остальные методы из класса Tracker. */
+    /* Остальные методы из класса MemTracker. */
 }
