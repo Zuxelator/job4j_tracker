@@ -38,17 +38,16 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement statement = cn.prepareStatement("INSERT INTO items (name, created) values (?, ?)");
-             PreparedStatement stForId = cn.prepareStatement("SELECT id FROM items WHERE name = ? and created = ?")) {
+        try (PreparedStatement statement = cn.prepareStatement("INSERT INTO items (name, created) values (?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             Timestamp timestampFromLDT = Timestamp.valueOf(item.getCreated());
             statement.setString(1, item.getName());
             statement.setTimestamp(2, timestampFromLDT);
             statement.execute();
-            stForId.setString(1, item.getName());
-            stForId.setTimestamp(2, timestampFromLDT);
-            ResultSet rs = stForId.executeQuery();
-            rs.next();
-            item.setId(rs.getInt(1));
+            try (ResultSet rs = statement.getGeneratedKeys()) {
+                rs.next();
+                item.setId(rs.getInt(1));
+            }
             return item;
         } catch (Exception e) {
             e.printStackTrace();
