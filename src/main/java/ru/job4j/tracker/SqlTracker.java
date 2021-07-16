@@ -15,7 +15,8 @@ public class SqlTracker implements Store {
     }
 
     public void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -38,7 +39,8 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement statement = cn.prepareStatement("INSERT INTO items (name, created) values (?, ?)",
+        try (PreparedStatement statement =
+                     cn.prepareStatement("INSERT INTO items (name, created) values (?, ?)",
                 Statement.RETURN_GENERATED_KEYS)) {
             Timestamp timestampFromLDT = Timestamp.valueOf(item.getCreated());
             statement.setString(1, item.getName());
@@ -57,7 +59,8 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean replace(int id, Item item) {
-        try (PreparedStatement statement = cn.prepareStatement("UPDATE items SET name = ?, created = ? WHERE id = ?")) {
+        try (PreparedStatement statement =
+                     cn.prepareStatement("UPDATE items SET name = ?, created = ? WHERE id = ?")) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.setInt(3, id);
@@ -85,7 +88,9 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = cn.prepareStatement("SELECT * from items;")) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getTimestamp(3).toLocalDateTime()));
+                list.add(new Item(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getTimestamp(3).toLocalDateTime()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,11 +101,14 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> list = new ArrayList<>();
-        try (PreparedStatement statement = cn.prepareStatement("SELECT * from items WHERE name = ?;")) {
+        try (PreparedStatement statement =
+                     cn.prepareStatement("SELECT * from items WHERE name = ?;")) {
             statement.setString(1, key);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getTimestamp(3).toLocalDateTime()));
+                list.add(new Item(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getTimestamp(3).toLocalDateTime()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,11 +119,14 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(int id) {
         Item item = null;
-        try (PreparedStatement statement = cn.prepareStatement("SELECT * from items WHERE id = ?;")) {
+        try (PreparedStatement statement =
+                     cn.prepareStatement("SELECT * from items WHERE id = ?;")) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            item = new Item(rs.getInt(1), rs.getString(2), rs.getTimestamp(3).toLocalDateTime());
+            item = new Item(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getTimestamp(3).toLocalDateTime());
         } catch (SQLException e) {
             e.printStackTrace();
         }
