@@ -10,6 +10,7 @@ import ru.job4j.tracker.Item;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -63,21 +64,10 @@ public class SqlTrackerTest {
     @Test
     public void findAll() throws SQLException {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        tracker.add(item1);
-        tracker.add(item2);
-        List<Item> dbList = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items")) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Item rsItem = new Item(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getTimestamp(3).toLocalDateTime());
-                dbList.add(rsItem);
-            }
-        }
-        assertThat(tracker.findAll(), is(dbList));
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        List<Item> list = Arrays.asList(item1, item2);
+        assertThat(list, is(tracker.findAll()));
     }
 
     @Test
