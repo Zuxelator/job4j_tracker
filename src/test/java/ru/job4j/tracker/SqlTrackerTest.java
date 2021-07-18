@@ -62,7 +62,7 @@ public class SqlTrackerTest {
     }
 
     @Test
-    public void findAll() throws SQLException {
+    public void findAll() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
         Item item2 = tracker.add(new Item("item2"));
