@@ -103,14 +103,11 @@ public class SqlTrackerTest {
     }
 
     @Test
-    public void delete() throws SQLException {
+    public void delete() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         tracker.delete(item.getId());
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items")) {
-            ResultSet rs = statement.executeQuery();
-            assertFalse(rs.next());
-        }
+        assertThat(tracker.findAll().size(), is(0));
     }
 
     @Test
